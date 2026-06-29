@@ -1,289 +1,538 @@
-# ============================================================
-#   PARCIAL - ESTRUCTURAS DE DATOS
-#   Ejercicio 1: Listas y Recursividad
-#   Ejercicio 2: Dataset Marvel 100+ personajes
-# ============================================================
+"""
+PARCIAL - Estructuras de Datos
+
+"""
 
 from collections import deque
 
 # ============================================================
-# EJERCICIO 1
+#  EJERCICIO 1
+# ============================================================
+
+lista_15 = [
+    "Iron Man",
+    "Thor",
+    "Captain America",
+    "Hulk",
+    "Black Widow",
+    "Hawkeye",
+    "Spider-Man",
+    "Wolverine",
+    "Deadpool",
+    "Black Panther",
+    "Doctor Strange",
+    "Scarlet Witch",
+    "Daredevil",
+    "Ghost Rider",
+    "Storm",
+]
+
+
+def buscar_recursivo(lista, objetivo, indice=0):
+    """Busca 'objetivo' en 'lista' de forma recursiva.
+    Retorna True si lo encuentra, False si no."""
+    if indice >= len(lista):          # caso base: recorrimos todo
+        return False
+    if lista[indice] == objetivo:     # lo encontramos
+        return True
+    return buscar_recursivo(lista, objetivo, indice + 1)
+
+
+def listar_recursivo(lista, indice=0):
+    """Imprime cada elemento de la lista de forma recursiva."""
+    if indice >= len(lista):          # caso base
+        return
+    print(f"  {indice + 1}. {lista[indice]}")
+    listar_recursivo(lista, indice + 1)
+
+
+print("=" * 60)
+print("EJERCICIO 1")
+print("=" * 60)
+
+print("\n--- Lista de 15 superhéroes (recursivo) ---")
+listar_recursivo(lista_15)
+
+encontrado = buscar_recursivo(lista_15, "Captain America")
+print(f"\n¿Captain America está en la lista? {'Sí ✓' if encontrado else 'No ✗'}")
+
+# Prueba con alguien que no está
+encontrado2 = buscar_recursivo(lista_15, "Thanos")
+print(f"¿Thanos está en la lista? {'Sí ✓' if encontrado2 else 'No ✗'}")
+
+
+# ============================================================
+#  DATOS - lista completa del archivo del profe
 # ============================================================
 
 superheroes = [
-    "Iron Man",
-    "Spider-Man",
-    "Thor",
-    "Hulk",
-    "Capitan America",
-    "Black Widow",
-    "Hawkeye",
-    "Doctor Strange",
-    "Black Panther",
-    "Ant-Man",
-    "Scarlet Witch",
-    "Vision",
-    "Captain Marvel",
-    "Wolverine",
-    "Deadpool"
+    {"name": "Kang", "alias": "Kang the Conqueror", "real_name": "Nathaniel Richards",
+     "short_bio": "Kang the Conqueror is a time-traveling warlord who has battled many heroes, especially the Avengers. He is known for his mastery of advanced technology and his ability to manipulate time.",
+     "first_appearance": 1964, "is_villain": True},
+    {"name": "Hulk", "alias": "The Hulk", "real_name": "Bruce Banner",
+     "short_bio": "Hulk is a gamma-powered superhero with incredible strength and durability. He transforms into a green giant when angered or stressed.",
+     "first_appearance": 1962, "is_villain": False},
+    {"name": "Black Widow", "alias": "Natasha Romanoff", "real_name": "Natasha Romanoff",
+     "short_bio": "Black Widow is a highly trained spy and former assassin with exceptional skills in hand-to-hand combat and espionage.",
+     "first_appearance": 1964, "is_villain": False},
+    {"name": "Black Cat", "alias": "Felicia Hardy", "real_name": "Felicia Hardy",
+     "short_bio": "Black Cat is a skilled burglar with a unique power that brings bad luck to her enemies. She often operates in the gray area between hero and villain.",
+     "first_appearance": 1979, "is_villain": True},
+    {"name": "Iron Man", "alias": "Iron Man", "real_name": "Tony Stark",
+     "short_bio": "A billionaire inventor who built a powered suit of armor to save his life and became a founding Avenger.",
+     "first_appearance": 1963, "is_villain": False},
+    {"name": "Magneto", "alias": "Master of Magnetism", "real_name": "Max Eisenhardt",
+     "short_bio": "A powerful mutant with control over magnetic fields, often portrayed as an adversary to the X-Men, though with complex motivations.",
+     "first_appearance": 1963, "is_villain": True},
+    {"name": "Storm", "alias": "Storm", "real_name": "Ororo Munroe",
+     "short_bio": "A mutant with the ability to manipulate weather, known for her leadership in the X-Men and her strong moral compass.",
+     "first_appearance": 1975, "is_villain": False},
+    {"name": "Venom", "alias": "Venom", "real_name": "Eddie Brock",
+     "short_bio": "A journalist who bonds with an alien symbiote to become the anti-hero Venom, often torn between vengeance and justice.",
+     "first_appearance": 1988, "is_villain": True},
+    {"name": "Scarlet Witch", "alias": "Scarlet Witch", "real_name": "Wanda Maximoff",
+     "short_bio": "A mutant with chaos magic and reality-warping powers, known for her complex role as both hero and threat.",
+     "first_appearance": 1964, "is_villain": False},
+    {"name": "Abomination", "alias": "Abomination", "real_name": "Emil Blonsky",
+     "short_bio": "A former KGB agent who transforms into a gamma-powered monster and becomes one of Hulk's main enemies.",
+     "first_appearance": 1967, "is_villain": True},
+    {"name": "Adam Warlock", "alias": "Adam Warlock", "real_name": "Adam Warlock",
+     "short_bio": "An artificially created perfect human who becomes a cosmic protector and wielder of the Soul Gem.",
+     "first_appearance": 1967, "is_villain": False},
+    {"name": "Angel", "alias": "Angel", "real_name": "Warren Worthington III",
+     "short_bio": "A founding member of the X-Men with large feathered wings that allow him to fly.",
+     "first_appearance": 1963, "is_villain": False},
+    {"name": "Annihilus", "alias": "Annihilus", "real_name": "Annihilus",
+     "short_bio": "A powerful insectoid ruler from the Negative Zone, obsessed with extending his lifespan.",
+     "first_appearance": 1968, "is_villain": True},
+    {"name": "Ant Man", "alias": "Ant Man", "real_name": "Hank Pym",
+     "short_bio": "A brilliant scientist who discovered Pym Particles and became a size-changing superhero.",
+     "first_appearance": 1962, "is_villain": False},
+    {"name": "Apocalypse", "alias": "Apocalypse", "real_name": "En Sabah Nur",
+     "short_bio": "One of the first mutants, Apocalypse believes in survival of the fittest and has enhanced his body over millennia with alien technology.",
+     "first_appearance": 1986, "is_villain": True},
+    {"name": "Baron Zemo", "alias": "Baron Zemo", "real_name": "Helmut Zemo",
+     "short_bio": "A brilliant and ruthless strategist, Baron Zemo is a longtime foe of Captain America and leader of various villainous groups.",
+     "first_appearance": 1973, "is_villain": True},
+    {"name": "Beast", "alias": "Beast", "real_name": "Henry 'Hank' McCoy",
+     "short_bio": "A founding member of the X-Men, Beast possesses superhuman strength and agility along with a brilliant scientific mind.",
+     "first_appearance": 1963, "is_villain": False},
+    {"name": "Beta Ray Bill", "alias": "Beta Ray Bill", "real_name": "Beta Ray Bill",
+     "short_bio": "A noble alien warrior deemed worthy of wielding Mjolnir, he was granted his own hammer, Stormbreaker, by Odin.",
+     "first_appearance": 1983, "is_villain": False},
+    {"name": "Black Bolt", "alias": "Black Bolt", "real_name": "Blackagar Boltagon",
+     "short_bio": "King of the Inhumans, Black Bolt possesses a voice so powerful that even a whisper can cause massive destruction.",
+     "first_appearance": 1965, "is_villain": False},
+    {"name": "Black Panther", "alias": "Black Panther", "real_name": "T'Challa",
+     "short_bio": "King of Wakanda and protector of its people, Black Panther is a skilled fighter, strategist, and bearer of the Heart-Shaped Herb.",
+     "first_appearance": 1966, "is_villain": False},
+    {"name": "Blizzard", "alias": "Blizzard", "real_name": "Donnie Gill",
+     "short_bio": "A villain who uses a suit capable of generating intense cold and ice-based attacks, often clashing with Iron Man.",
+     "first_appearance": 1987, "is_villain": True},
+    {"name": "Bullseye", "alias": "Bullseye", "real_name": "Lester",
+     "short_bio": "An assassin with deadly accuracy, Bullseye never misses and is a persistent nemesis of Daredevil.",
+     "first_appearance": 1976, "is_villain": True},
+    {"name": "Cable", "alias": "Cable", "real_name": "Nathan Summers",
+     "short_bio": "A time-traveling mutant soldier with telekinetic powers and a techno-organic virus, he is the son of Cyclops and Madelyne Pryor.",
+     "first_appearance": 1990, "is_villain": False},
+    {"name": "Captain America", "alias": "Captain America", "real_name": "Steve Rogers",
+     "short_bio": "A super-soldier from World War II, Captain America is a symbol of heroism, justice, and patriotism in the Marvel Universe.",
+     "first_appearance": 1941, "is_villain": False},
+    {"name": "Captain Britain", "alias": "Captain Britain", "real_name": "Brian Braddock",
+     "short_bio": "Chosen by Merlyn and Roma to protect the multiverse, Captain Britain draws his powers from a mystical amulet and his own will.",
+     "first_appearance": 1976, "is_villain": False},
+    {"name": "Charlie-27", "alias": "Charlie-27", "real_name": "Charlie-27",
+     "short_bio": "A genetically engineered soldier from Jupiter and member of the original Guardians of the Galaxy team from the 31st century.",
+     "first_appearance": 1969, "is_villain": False},
+    {"name": "Cloak", "alias": "Cloak", "real_name": "Tyrone Johnson",
+     "short_bio": "Cloak can manipulate darkforce energy and teleport through the Dark Dimension. He is one half of the duo Cloak and Dagger.",
+     "first_appearance": 1982, "is_villain": False},
+    {"name": "Colossus", "alias": "Colossus", "real_name": "Piotr Rasputin",
+     "short_bio": "A Russian mutant who can transform his body into organic steel, Colossus is a powerful member of the X-Men.",
+     "first_appearance": 1975, "is_villain": False},
+    {"name": "Cyclops", "alias": "Cyclops", "real_name": "Scott Summers",
+     "short_bio": "A founding member and leader of the X-Men, Cyclops emits powerful optic blasts and is known for his strategic mind.",
+     "first_appearance": 1963, "is_villain": False},
+    {"name": "Cyclops-X-Men97", "alias": "Cyclops-X-Men97", "real_name": "Scott Summers",
+     "short_bio": "An alternate version of Cyclops as seen in the animated series X-Men '97, continuing to lead the X-Men after Xavier's absence.",
+     "first_appearance": 2023, "is_villain": False},
+    {"name": "Dagger", "alias": "Dagger", "real_name": "Tandy Bowen",
+     "short_bio": "Dagger generates light daggers that heal and purify. She forms a powerful partnership with Cloak.",
+     "first_appearance": 1982, "is_villain": False},
+    {"name": "Daredevil", "alias": "Daredevil", "real_name": "Matt Murdock",
+     "short_bio": "Blinded as a child, Daredevil's remaining senses were heightened to superhuman levels. He defends Hell's Kitchen as a masked vigilante.",
+     "first_appearance": 1964, "is_villain": False},
+    {"name": "Deadpool", "alias": "Deadpool", "real_name": "Wade Wilson",
+     "short_bio": "A mercenary with a healing factor, Deadpool is known for his irreverent humor, unpredictability, and breaking the fourth wall.",
+     "first_appearance": 1991, "is_villain": False},
+    {"name": "Drax the Destroyer", "alias": "Drax the Destroyer", "real_name": "Arthur Douglas",
+     "short_bio": "Originally a human, Drax was resurrected to destroy Thanos. He possesses superhuman strength and resilience.",
+     "first_appearance": 1973, "is_villain": False},
+    {"name": "Dr Doom", "alias": "Dr Doom", "real_name": "Victor Von Doom",
+     "short_bio": "A brilliant scientist and ruler of Latveria, Doctor Doom seeks to conquer the world and frequently clashes with the Fantastic Four.",
+     "first_appearance": 1962, "is_villain": True},
+    {"name": "Dr Octopus", "alias": "Dr Octopus", "real_name": "Otto Octavius",
+     "short_bio": "A genius scientist whose mechanical arms fused to his body, Doctor Octopus is a major foe of Spider-Man.",
+     "first_appearance": 1963, "is_villain": True},
+    {"name": "Dr Strannnnnge", "alias": "Dr Strange", "real_name": "Stephen Strange",
+     "short_bio": "Once a brilliant but arrogant surgeon, he became the Sorcerer Supreme and protector of Earth from magical threats.",
+     "first_appearance": 1963, "is_villain": False},
+    {"name": "Electro", "alias": "Electro", "real_name": "Maxwell Dillon",
+     "short_bio": "A former lineman who gained the ability to control electricity after being struck by lightning, becoming one of Spider-Man's most enduring enemies.",
+     "first_appearance": 1964, "is_villain": True},
+    {"name": "Elektra", "alias": "Elektra", "real_name": "Elektra Natchios",
+     "short_bio": "A skilled assassin and former love interest of Daredevil, known for her complex morality and deadly prowess.",
+     "first_appearance": 1981, "is_villain": False},
+    {"name": "Falcon", "alias": "Falcon", "real_name": "Samuel Thomas Wilson",
+     "short_bio": "A superhero who uses mechanical wings to fly and has limited telepathic control over birds; later assumes the mantle of Captain America.",
+     "first_appearance": 1969, "is_villain": False},
+    {"name": "Galactus", "alias": "Galactus", "real_name": "Galan",
+     "short_bio": "A cosmic entity who consumes planets to sustain his life force, serving a functional role in the Marvel Universe.",
+     "first_appearance": 1966, "is_villain": True},
+    {"name": "Gamora", "alias": "Gamora", "real_name": "Gamora Zen Whoberi Ben Titan",
+     "short_bio": "The adopted daughter of Thanos and the last of her species, known for her superhuman strength and agility.",
+     "first_appearance": 1975, "is_villain": False},
+    {"name": "Ghost Rider", "alias": "Ghost Rider", "real_name": "Johnny Blaze",
+     "short_bio": "A stunt motorcyclist who becomes the Ghost Rider after making a deal with Mephisto, gaining a flaming skull and supernatural powers.",
+     "first_appearance": 1972, "is_villain": False},
+    {"name": "Giraud", "alias": "Giraud", "real_name": "Giraud",
+     "short_bio": "A native of the planet Haven who becomes the host for the Phoenix Force in the 31st century.",
+     "first_appearance": 1994, "is_villain": False},
+    {"name": "Gladiator", "alias": "Gladiator", "real_name": "Kallark",
+     "short_bio": "A Strontian and leader of the Shi'ar Imperial Guard, possessing immense strength and various superpowers.",
+     "first_appearance": 1977, "is_villain": False},
+    {"name": "Green Goblin", "alias": "Green Goblin", "real_name": "Norman Osborn",
+     "short_bio": "A wealthy industrialist who becomes one of Spider-Man's greatest foes after taking a serum that grants him superhuman abilities.",
+     "first_appearance": 1964, "is_villain": True},
+    {"name": "Groot", "alias": "Groot", "real_name": "Groot",
+     "short_bio": "A Flora colossus from Planet X, known for his regenerative abilities and limited vocabulary.",
+     "first_appearance": 1960, "is_villain": False},
+    {"name": "Guardian", "alias": "Guardian", "real_name": "James MacDonald Hudson",
+     "short_bio": "A Canadian superhero and leader of Alpha Flight, wearing a suit that grants him various abilities.",
+     "first_appearance": 1978, "is_villain": False},
+    {"name": "Havok", "alias": "Havok", "real_name": "Alexander Summers",
+     "short_bio": "The younger brother of Cyclops, capable of absorbing and emitting powerful plasma blasts.",
+     "first_appearance": 1969, "is_villain": False},
+    {"name": "Hawkeye", "alias": "Hawkeye", "real_name": "Clinton Francis Barton",
+     "short_bio": "A master archer and former S.H.I.E.L.D. agent who becomes a key member of the Avengers.",
+     "first_appearance": 1964, "is_villain": False},
+    {"name": "Human Torch", "alias": "Human Torch", "real_name": "Jonathan Lowell Spencer Storm",
+     "short_bio": "A member of the Fantastic Four who can engulf his body in flames and fly.",
+     "first_appearance": 1961, "is_villain": False},
+    {"name": "Iceman", "alias": "Iceman", "real_name": "Robert Louis Drake",
+     "short_bio": "A founding member of the X-Men with the ability to generate and manipulate ice.",
+     "first_appearance": 1963, "is_villain": False},
+    {"name": "Invisible Woman", "alias": "Invisible Woman", "real_name": "Susan Storm Richards",
+     "short_bio": "A member of the Fantastic Four who can render herself invisible and create force fields.",
+     "first_appearance": 1961, "is_villain": False},
+    {"name": "Iron Fist", "alias": "Iron Fist", "real_name": "Daniel Thomas Rand-K'ai",
+     "short_bio": "A martial artist who gained the power of the Iron Fist by defeating the dragon Shou-Lao.",
+     "first_appearance": 1974, "is_villain": False},
+    {"name": "Juggernaut", "alias": "Juggernaut", "real_name": "Cain Marko",
+     "short_bio": "The stepbrother of Charles Xavier, empowered by the Crimson Gem of Cyttorak, making him virtually unstoppable.",
+     "first_appearance": 1965, "is_villain": True},
+    {"name": "Klaw", "alias": "Klaw", "real_name": "Ulysses Klaw",
+     "short_bio": "A physicist who transformed into a being of solid sound, becoming an enemy of Black Panther.",
+     "first_appearance": 1966, "is_villain": True},
+    {"name": "Kraven the Hunter", "alias": "Kraven the Hunter", "real_name": "Sergei Nikolaevich Kravinoff",
+     "short_bio": "A big-game hunter who seeks to defeat Spider-Man to prove himself as the world's greatest hunter.",
+     "first_appearance": 1964, "is_villain": True},
+    {"name": "Krugarr", "alias": "Krugarr", "real_name": "Krugarr",
+     "short_bio": "A Lem named Krugarr who becomes the Sorcerer Supreme in the 31st century.",
+     "first_appearance": 1991, "is_villain": False},
+    {"name": "Leader", "alias": "Leader", "real_name": "Samuel Sterns",
+     "short_bio": "A janitor who becomes a super-intelligent adversary of the Hulk after exposure to gamma radiation.",
+     "first_appearance": 1964, "is_villain": True},
+    {"name": "Loki", "alias": "Loki", "real_name": "Loki Laufeyson",
+     "short_bio": "The Asgardian god of mischief and adopted brother of Thor, known for his cunning and magical abilities.",
+     "first_appearance": 1949, "is_villain": True},
+    {"name": "Machine Man", "alias": "Machine Man", "real_name": "X-51 / Aaron Stack",
+     "short_bio": "An android created by Dr. Abel Stack who develops human emotions and becomes a superhero.",
+     "first_appearance": 1977, "is_villain": False},
+    {"name": "Marvel Girl", "alias": "Marvel Girl", "real_name": "Jean Grey",
+     "short_bio": "A founding member of the X-Men with powerful telepathic and telekinetic abilities.",
+     "first_appearance": 1963, "is_villain": False},
+    {"name": "Mar-Vell", "alias": "Mar-Vell", "real_name": "Mar-Vell",
+     "short_bio": "A Kree warrior who became Earth's protector, known as the original Captain Marvel.",
+     "first_appearance": 1967, "is_villain": False},
+    {"name": "Medusa", "alias": "Medusa", "real_name": "Medusalith Amaquelin",
+     "short_bio": "Queen of the Inhumans, known for her prehensile hair which she can control like extra limbs.",
+     "first_appearance": 1965, "is_villain": False},
+    {"name": "Mephisto", "alias": "Mephisto", "real_name": "Mephisto",
+     "short_bio": "A powerful demon who rules a hell-like dimension and frequently manipulates heroes for his own gain.",
+     "first_appearance": 1968, "is_villain": True},
+    {"name": "MODOK", "alias": "MODOK", "real_name": "George Tarleton",
+     "short_bio": "A mutated scientist with a giant head and vast mental powers, leading the villainous organization A.I.M.",
+     "first_appearance": 1967, "is_villain": True},
+    {"name": "Moondragon", "alias": "Moondragon", "real_name": "Heather Douglas",
+     "short_bio": "A powerful telepath and martial artist with cosmic awareness and a complex past tied to Drax the Destroyer.",
+     "first_appearance": 1973, "is_villain": False},
+    {"name": "Moon Knight", "alias": "Moon Knight", "real_name": "Marc Spector",
+     "short_bio": "A former mercenary resurrected by the Egyptian god Khonshu to fight crime using multiple identities.",
+     "first_appearance": 1975, "is_villain": False},
+    {"name": "Mr Fantastic", "alias": "Mr Fantastic", "real_name": "Reed Richards",
+     "short_bio": "Leader of the Fantastic Four with a genius intellect and a body that can stretch into any shape.",
+     "first_appearance": 1961, "is_villain": False},
+    {"name": "Mr Sinister", "alias": "Mr Sinister", "real_name": "Nathaniel Essex",
+     "short_bio": "A master geneticist obsessed with mutation and evolution, known for manipulating mutant DNA.",
+     "first_appearance": 1987, "is_villain": True},
+    {"name": "Ms Marvel", "alias": "Ms Marvel", "real_name": "Kamala Khan",
+     "short_bio": "A teenage superhero from Jersey City with shape-shifting powers, inspired by Captain Marvel.",
+     "first_appearance": 2013, "is_villain": False},
+    {"name": "Mysterio", "alias": "Mysterio", "real_name": "Quentin Beck",
+     "short_bio": "A special effects artist and illusionist who uses his skills for elaborate crimes and deception.",
+     "first_appearance": 1964, "is_villain": True},
+    {"name": "Mystique", "alias": "Mystique", "real_name": "Raven Darkhölme",
+     "short_bio": "A shape-shifting mutant and frequent adversary of the X-Men, known for her complex loyalties.",
+     "first_appearance": 1978, "is_villain": True},
+    {"name": "Namor", "alias": "Namor", "real_name": "Namor McKenzie",
+     "short_bio": "The Sub-Mariner, a hybrid of human and Atlantean, with super strength and aquatic abilities.",
+     "first_appearance": 1939, "is_villain": False},
+    {"name": "Nebula", "alias": "Nebula", "real_name": "Nebula",
+     "short_bio": "A space pirate and adopted daughter of Thanos, known for her rivalry with her sister Gamora.",
+     "first_appearance": 1985, "is_villain": True},
+    {"name": "Nightcrawler", "alias": "Nightcrawler", "real_name": "Kurt Wagner",
+     "short_bio": "A teleporting mutant with a demonic appearance and strong religious beliefs, member of the X-Men.",
+     "first_appearance": 1975, "is_villain": False},
+    {"name": "Nimrod", "alias": "Nimrod", "real_name": "Nimrod",
+     "short_bio": "An advanced Sentinel from the future designed to hunt and exterminate mutants.",
+     "first_appearance": 1985, "is_villain": True},
+    {"name": "Nova", "alias": "Nova", "real_name": "Richard Rider",
+     "short_bio": "A human granted the power of the Nova Corps to protect the universe as a cosmic hero.",
+     "first_appearance": 1976, "is_villain": False},
+    {"name": "Phoenix", "alias": "Phoenix", "real_name": "Jean Grey",
+     "short_bio": "A mutant with telepathy and telekinesis who becomes host to the powerful Phoenix Force.",
+     "first_appearance": 1963, "is_villain": False},
+    {"name": "Professor X", "alias": "Professor X", "real_name": "Charles Xavier",
+     "short_bio": "A powerful telepath and founder of the X-Men, advocating peaceful coexistence between humans and mutants.",
+     "first_appearance": 1963, "is_villain": False},
+    {"name": "Punisher", "alias": "Punisher", "real_name": "Frank Castle",
+     "short_bio": "A former Marine who wages a one-man war on crime after his family was murdered by the mob.",
+     "first_appearance": 1974, "is_villain": False},
+    {"name": "Radioactive Man", "alias": "Radioactive Man", "real_name": "Chen Lu",
+     "short_bio": "A Chinese scientist who turned himself into a being of pure radiation, often clashing with the Avengers.",
+     "first_appearance": 1963, "is_villain": True},
+    {"name": "Red Hulk", "alias": "Red Hulk", "real_name": "Thaddeus 'Thunderbolt' Ross",
+     "short_bio": "A military general transformed into a powerful red-skinned Hulk with explosive rage.",
+     "first_appearance": 2008, "is_villain": True},
+    {"name": "Red Skull", "alias": "Red Skull", "real_name": "Johann Schmidt",
+     "short_bio": "A Nazi officer and archenemy of Captain America, driven by hatred and the pursuit of power.",
+     "first_appearance": 1941, "is_villain": True},
+    {"name": "Rhino", "alias": "Rhino", "real_name": "Aleksei Sytsevich",
+     "short_bio": "A Russian thug given super strength and a nearly indestructible rhino-themed suit.",
+     "first_appearance": 1966, "is_villain": True},
+    {"name": "Rocket Raccoon", "alias": "Rocket Raccoon", "real_name": "Rocket",
+     "short_bio": "A genetically modified raccoon with a sharp mind, big guns, and a place among the Guardians of the Galaxy.",
+     "first_appearance": 1976, "is_villain": False},
+    {"name": "Rogue", "alias": "Rogue", "real_name": "Anna Marie",
+     "short_bio": "A mutant who absorbs the powers and memories of others through skin contact, member of the X-Men.",
+     "first_appearance": 1981, "is_villain": False},
+    {"name": "Rom the Spaceknight", "alias": "Rom the Spaceknight", "real_name": "Rom",
+     "short_bio": "A cyborg warrior from Galador who battles the Dire Wraiths across the cosmos.",
+     "first_appearance": 1979, "is_villain": False},
+    {"name": "Sasquatch", "alias": "Sasquatch", "real_name": "Walter Langkowski",
+     "short_bio": "A Canadian physicist who transforms into a powerful beast resembling the mythical Sasquatch.",
+     "first_appearance": 1979, "is_villain": False},
+    {"name": "Scorpion", "alias": "Scorpion", "real_name": "MacDonald 'Mac' Gargan",
+     "short_bio": "A private investigator turned supervillain with a mechanical scorpion suit.",
+     "first_appearance": 1964, "is_villain": True},
+    {"name": "Sentinel", "alias": "Sentinel", "real_name": None,
+     "short_bio": "Large robots created to hunt and capture mutants.",
+     "first_appearance": 1965, "is_villain": True},
+    {"name": "Shaman", "alias": "Shaman", "real_name": "Michael Twoyoungmen",
+     "short_bio": "A mystical healer and member of Alpha Flight.",
+     "first_appearance": 1979, "is_villain": False},
+    {"name": "She-Hulk", "alias": "She-Hulk", "real_name": "Jennifer Walters",
+     "short_bio": "A lawyer who gains Hulk-like powers after a blood transfusion from her cousin Bruce Banner.",
+     "first_appearance": 1980, "is_villain": False},
+    {"name": "Silver Surfer", "alias": "Silver Surfer", "real_name": "Norrin Radd",
+     "short_bio": "A former herald of Galactus who travels the cosmos on his surfboard.",
+     "first_appearance": 1966, "is_villain": False},
+    {"name": "Snowbird", "alias": "Snowbird", "real_name": "Narya",
+     "short_bio": "A demigoddess with the ability to transform into Arctic animals.",
+     "first_appearance": 1979, "is_villain": False},
+    {"name": "Spiderman", "alias": "Spiderman", "real_name": "Peter Parker",
+     "short_bio": "A young man with spider-like abilities who fights crime in New York City.",
+     "first_appearance": 1962, "is_villain": False},
+    {"name": "Spiderman Symbiote", "alias": "Spiderman Symbiote", "real_name": "Peter Parker",
+     "short_bio": "Spider-Man's enhanced form when bonded with an alien symbiote.",
+     "first_appearance": 1984, "is_villain": False},
+    {"name": "Spider-Woman", "alias": "Spider-Woman", "real_name": "Jessica Drew",
+     "short_bio": "A superheroine with spider-like powers and a complex past.",
+     "first_appearance": 1977, "is_villain": False},
+    {"name": "Starfox", "alias": "Starfox", "real_name": "Eros",
+     "short_bio": "Brother of Thanos with the ability to manipulate emotions.",
+     "first_appearance": 1973, "is_villain": False},
+    {"name": "Strong Guy", "alias": "Strong Guy", "real_name": "Guido Carosella",
+     "short_bio": "A mutant who absorbs kinetic energy to enhance his strength.",
+     "first_appearance": 1985, "is_villain": False},
+    {"name": "Talisman", "alias": "Talisman", "real_name": "Elizabeth Twoyoungmen",
+     "short_bio": "A powerful sorceress and daughter of Shaman.",
+     "first_appearance": 1983, "is_villain": False},
+    {"name": "Thanos", "alias": "Thanos", "real_name": "Thanos",
+     "short_bio": "A powerful warlord from Titan obsessed with balance in the universe.",
+     "first_appearance": 1973, "is_villain": True},
+    {"name": "The Thing", "alias": "The Thing", "real_name": "Benjamin Grimm",
+     "short_bio": "A member of the Fantastic Four with a rock-like appearance and immense strength.",
+     "first_appearance": 1961, "is_villain": False},
+    {"name": "Thor", "alias": "Thor", "real_name": "Thor Odinson",
+     "short_bio": "The Norse god of thunder and a founding member of the Avengers.",
+     "first_appearance": 1962, "is_villain": False},
+    {"name": "Uatu the Watcher", "alias": "Uatu the Watcher", "real_name": "Uatu",
+     "short_bio": "A cosmic being who observes events in the universe without interfering.",
+     "first_appearance": 1963, "is_villain": False},
+    {"name": "Ultron", "alias": "Ultron", "real_name": "Ultron",
+     "short_bio": "A sentient robot with a desire to eradicate humanity.",
+     "first_appearance": 1968, "is_villain": True},
+    {"name": "US Agent", "alias": "US Agent", "real_name": "John Walker",
+     "short_bio": "A government-sanctioned replacement for Captain America.",
+     "first_appearance": 1986, "is_villain": False},
+    {"name": "Vance Astro", "alias": "Vance Astro", "real_name": "Vance Astrovik",
+     "short_bio": "An astronaut who becomes a member of the Guardians of the Galaxy.",
+     "first_appearance": 1969, "is_villain": False},
+    {"name": "Vindicator", "alias": "Vindicator", "real_name": "James Hudson",
+     "short_bio": "Leader of Alpha Flight with a technologically advanced suit.",
+     "first_appearance": 1978, "is_villain": False},
+    {"name": "Vision", "alias": "Vision", "real_name": "Vision",
+     "short_bio": "An android with the ability to phase through objects and manipulate density.",
+     "first_appearance": 1968, "is_villain": False},
+    {"name": "War Machine", "alias": "War Machine", "real_name": "James 'Rhodey' Rhodes",
+     "short_bio": "A military officer who dons a heavily armed suit of armor.",
+     "first_appearance": 1979, "is_villain": False},
+    {"name": "Wasp", "alias": "Wasp", "real_name": "Janet van Dyne",
+     "short_bio": "A founding Avenger with the ability to shrink and fly.",
+     "first_appearance": 1963, "is_villain": False},
+    {"name": "Wolverine", "alias": "Wolverine", "real_name": "James 'Logan' Howlett",
+     "short_bio": "A mutant with regenerative healing and retractable claws.",
+     "first_appearance": 1974, "is_villain": False},
+    {"name": "Yellow Jacket", "alias": "Yellow Jacket", "real_name": "Hank Pym",
+     "short_bio": "A brilliant scientist who can shrink in size and has multiple superhero identities.",
+     "first_appearance": 1963, "is_villain": True},
 ]
 
-# --- Función recursiva: buscar Capitan America ---
-def buscar_capitan_america(lista, indice=0):
-    """Retorna True si 'Capitan America' está en la lista, False si no."""
-    if indice == len(lista):
-        return False
-    if lista[indice] == "Capitan America":
-        return True
-    return buscar_capitan_america(lista, indice + 1)
-
-# --- Función recursiva: listar superheroes ---
-def listar_superheroes(lista, indice=0):
-    """Imprime recursivamente todos los superhéroes de la lista."""
-    if indice == len(lista):
-        return
-    print(f"  {indice + 1}. {lista[indice]}")
-    listar_superheroes(lista, indice + 1)
-
+print(f"\nTotal de personajes en la lista: {len(superheroes)}")
 
 # ============================================================
-# EJERCICIO 2 - Dataset Marvel (100+ personajes)
-# Campos: nombre, nombre_real, tipo, anio_aparicion, biografia
+#  EJERCICIO 2
 # ============================================================
 
-personajes_marvel = [
-    {"nombre": "Ant-Man",            "nombre_real": "Hank Pym",           "tipo": "heroe",   "anio": 1962, "bio": "Scientist who can shrink using suit technology."},
-    {"nombre": "Beast",              "nombre_real": "Henry McCoy",         "tipo": "heroe",   "anio": 1963, "bio": "Mutant X-Man with blue fur and genius intellect."},
-    {"nombre": "Black Bolt",         "nombre_real": "Blackagar Boltagon",  "tipo": "heroe",   "anio": 1965, "bio": "Inhuman king with a devastating sonic voice."},
-    {"nombre": "Black Panther",      "nombre_real": "T'Challa",            "tipo": "heroe",   "anio": 1966, "bio": "King of Wakanda and master of suit vibranium armor."},
-    {"nombre": "Black Widow",        "nombre_real": "Natasha Romanoff",    "tipo": "heroe",   "anio": 1964, "bio": "Elite spy and assassin, time-traveling through covert ops."},
-    {"nombre": "Blade",              "nombre_real": "Eric Brooks",         "tipo": "heroe",   "anio": 1973, "bio": "Dhampir vampire hunter with enhanced abilities."},
-    {"nombre": "Blue Marvel",        "nombre_real": "Adam Brashear",       "tipo": "heroe",   "anio": 2008, "bio": "Anti-matter powered superhero and former marine."},
-    {"nombre": "Cable",              "nombre_real": "Nathan Summers",      "tipo": "heroe",   "anio": 1990, "bio": "Time-traveling soldier from the future with telepathy."},
-    {"nombre": "Captain America",    "nombre_real": "Steve Rogers",        "tipo": "heroe",   "anio": 1941, "bio": "Super-soldier and time-traveling Avenger, first Avenger."},
-    {"nombre": "Captain Britain",    "nombre_real": "Brian Braddock",      "tipo": "heroe",   "anio": 1976, "bio": "Champion of Britain empowered by Merlyn."},
-    {"nombre": "Captain Marvel",     "nombre_real": "Carol Danvers",       "tipo": "heroe",   "anio": 1968, "bio": "Kree-human hybrid with immense cosmic power and suit."},
-    {"nombre": "Cyclops",            "nombre_real": "Scott Summers",       "tipo": "heroe",   "anio": 1963, "bio": "X-Men leader who fires optic blasts."},
-    {"nombre": "Daredevil",          "nombre_real": "Matt Murdock",        "tipo": "heroe",   "anio": 1964, "bio": "Blind lawyer who fights crime in Hell's Kitchen."},
-    {"nombre": "Deadpool",           "nombre_real": "Wade Wilson",         "tipo": "heroe",   "anio": 1991, "bio": "Merc with a mouth, time-traveling regenerating mercenary."},
-    {"nombre": "Doctor Strange",     "nombre_real": "Stephen Strange",     "tipo": "heroe",   "anio": 1963, "bio": "Sorcerer Supreme and master of the mystic arts."},
-    {"nombre": "Elektra",            "nombre_real": "Elektra Natchios",    "tipo": "heroe",   "anio": 1981, "bio": "Skilled assassin and martial artist."},
-    {"nombre": "Falcon",             "nombre_real": "Sam Wilson",          "tipo": "heroe",   "anio": 1969, "bio": "Winged hero and partner of Captain America."},
-    {"nombre": "Fantastic Four - Mr. Fantastic", "nombre_real": "Reed Richards", "tipo": "heroe", "anio": 1961, "bio": "Genius leader of the Fantastic Four with elastic body."},
-    {"nombre": "Gambit",             "nombre_real": "Remy LeBeau",         "tipo": "heroe",   "anio": 1990, "bio": "Cajun X-Man who charges objects with kinetic energy."},
-    {"nombre": "Ghost Rider",        "nombre_real": "Johnny Blaze",        "tipo": "heroe",   "anio": 1972, "bio": "Spirit of Vengeance bonded to a stunt rider."},
-    {"nombre": "Giant-Man",          "nombre_real": "Bill Foster",         "tipo": "heroe",   "anio": 1966, "bio": "Hero who uses Pym particles to grow to enormous size."},
-    {"nombre": "Groot",              "nombre_real": "Groot",               "tipo": "heroe",   "anio": 1960, "bio": "Flora colossus and Guardian of the Galaxy."},
-    {"nombre": "Havok",              "nombre_real": "Alex Summers",        "tipo": "heroe",   "anio": 1969, "bio": "X-Man who generates plasma blasts."},
-    {"nombre": "Hawkeye",            "nombre_real": "Clint Barton",        "tipo": "heroe",   "anio": 1964, "bio": "World's greatest marksman and Avenger."},
-    {"nombre": "Hulk",               "nombre_real": "Bruce Banner",        "tipo": "heroe",   "anio": 1962, "bio": "Gamma-powered behemoth, strongest one there is."},
-    {"nombre": "Human Torch",        "nombre_real": "Johnny Storm",        "tipo": "heroe",   "anio": 1961, "bio": "Fantastic Four member who can engulf himself in flames."},
-    {"nombre": "Iceman",             "nombre_real": "Bobby Drake",         "tipo": "heroe",   "anio": 1963, "bio": "Omega-level mutant who controls ice and cold."},
-    {"nombre": "Invisible Woman",    "nombre_real": "Susan Storm",         "tipo": "heroe",   "anio": 1961, "bio": "Fantastic Four member with force fields and invisibility."},
-    {"nombre": "Iron Fist",          "nombre_real": "Danny Rand",          "tipo": "heroe",   "anio": 1974, "bio": "Martial artist with chi-powered iron fist."},
-    {"nombre": "Iron Man",           "nombre_real": "Tony Stark",          "tipo": "heroe",   "anio": 1963, "bio": "Billionaire in a high-tech suit of armor, Avenger."},
-    {"nombre": "Jessica Jones",      "nombre_real": "Jessica Jones",       "tipo": "heroe",   "anio": 2001, "bio": "Private investigator with superhuman strength."},
-    {"nombre": "Luke Cage",          "nombre_real": "Carl Lucas",          "tipo": "heroe",   "anio": 1972, "bio": "Power man with steel-hard skin and super strength."},
-    {"nombre": "Moon Knight",        "nombre_real": "Marc Spector",        "tipo": "heroe",   "anio": 1975, "bio": "Avatar of Khonshu with multiple personalities."},
-    {"nombre": "Ms. Marvel",         "nombre_real": "Kamala Khan",         "tipo": "heroe",   "anio": 2013, "bio": "Inhuman polymorph teen hero and Avenger."},
-    {"nombre": "Mister Fantastic",   "nombre_real": "Reed Richards",       "tipo": "heroe",   "anio": 1961, "bio": "Leader of the Fantastic Four with elastic body and suit."},
-    {"nombre": "Mystique",           "nombre_real": "Raven Darkholme",     "tipo": "villano", "anio": 1978, "bio": "Shape-shifting mutant and Brotherhood leader."},
-    {"nombre": "My Hero",            "nombre_real": "Unknown",             "tipo": "heroe",   "anio": 2010, "bio": "Obscure hero with time-traveling abilities."},
-    {"nombre": "Namor",              "nombre_real": "Namor McKenzie",      "tipo": "heroe",   "anio": 1939, "bio": "The Sub-Mariner, king of Atlantis."},
-    {"nombre": "Nick Fury",          "nombre_real": "Nicholas Fury",       "tipo": "heroe",   "anio": 1963, "bio": "Director of S.H.I.E.L.D. and master spy."},
-    {"nombre": "Nightcrawler",       "nombre_real": "Kurt Wagner",         "tipo": "heroe",   "anio": 1975, "bio": "Teleporting mutant X-Man."},
-    {"nombre": "Nova",               "nombre_real": "Richard Rider",       "tipo": "heroe",   "anio": 1976, "bio": "Human bearing the Nova Force of the Nova Corps."},
-    {"nombre": "Psylocke",           "nombre_real": "Betsy Braddock",      "tipo": "heroe",   "anio": 1976, "bio": "Telepathic and telekinetic X-Man ninja."},
-    {"nombre": "Punisher",           "nombre_real": "Frank Castle",        "tipo": "heroe",   "anio": 1974, "bio": "Vigilante who wages war on criminals."},
-    {"nombre": "Quicksilver",        "nombre_real": "Pietro Maximoff",     "tipo": "heroe",   "anio": 1964, "bio": "Mutant with super speed, son of Magneto."},
-    {"nombre": "Rocket Raccoon",     "nombre_real": "Rocket",              "tipo": "heroe",   "anio": 1976, "bio": "Genetically engineered raccoon and Guardian of the Galaxy."},
-    {"nombre": "Rogue",              "nombre_real": "Anna Marie",          "tipo": "heroe",   "anio": 1981, "bio": "Mutant who absorbs powers and memories by touch."},
-    {"nombre": "Scarlet Witch",      "nombre_real": "Wanda Maximoff",      "tipo": "heroe",   "anio": 1964, "bio": "Chaos magic wielder with reality-altering powers."},
-    {"nombre": "She-Hulk",           "nombre_real": "Jennifer Walters",    "tipo": "heroe",   "anio": 1980, "bio": "Lawyer cousin of Bruce Banner with Hulk powers."},
-    {"nombre": "Silver Surfer",      "nombre_real": "Norrin Radd",         "tipo": "heroe",   "anio": 1966, "bio": "Former herald of Galactus with the Power Cosmic."},
-    {"nombre": "Spider-Man",         "nombre_real": "Peter Parker",        "tipo": "heroe",   "anio": 1962, "bio": "Friendly neighborhood hero with spider powers."},
-    {"nombre": "Spider-Woman",       "nombre_real": "Jessica Drew",        "tipo": "heroe",   "anio": 1977, "bio": "S.H.I.E.L.D. agent with arachnid-based powers."},
-    {"nombre": "Storm",              "nombre_real": "Ororo Munroe",        "tipo": "heroe",   "anio": 1975, "bio": "Omega-level mutant X-Man who controls weather."},
-    {"nombre": "The Thing",          "nombre_real": "Benjamin Grimm",      "tipo": "heroe",   "anio": 1961, "bio": "Fantastic Four member with rocky orange skin, it's clobberin' time."},
-    {"nombre": "Thor",               "nombre_real": "Thor Odinson",        "tipo": "heroe",   "anio": 1962, "bio": "Asgardian god of thunder, time-traveling Avenger."},
-    {"nombre": "Tigra",              "nombre_real": "Greer Nelson",        "tipo": "heroe",   "anio": 1972, "bio": "Cat-woman Avenger with tiger-like abilities."},
-    {"nombre": "Vision",             "nombre_real": "Victor Shade",        "tipo": "heroe",   "anio": 1968, "bio": "Android Avenger with density-altering powers."},
-    {"nombre": "War Machine",        "nombre_real": "James Rhodes",        "tipo": "heroe",   "anio": 1979, "bio": "Military man in a heavily-armed suit of armor."},
-    {"nombre": "Wasp",               "nombre_real": "Janet Van Dyne",      "tipo": "heroe",   "anio": 1963, "bio": "Size-changing Avenger who co-founded the team."},
-    {"nombre": "Winter Soldier",     "nombre_real": "Bucky Barnes",        "tipo": "heroe",   "anio": 1941, "bio": "Former sidekick turned time-traveling assassin."},
-    {"nombre": "Wolverine",          "nombre_real": "James Howlett",       "tipo": "heroe",   "anio": 1974, "bio": "Mutant with adamantium claws and healing factor."},
-    {"nombre": "Wonder Man",         "nombre_real": "Simon Williams",      "tipo": "heroe",   "anio": 1964, "bio": "Ionic energy-powered Avenger and Hollywood actor."},
-    {"nombre": "Wong",               "nombre_real": "Wong",                "tipo": "heroe",   "anio": 1963, "bio": "Sorcerer and loyal aide of Doctor Strange."},
-    # --- VILLANOS ---
-    {"nombre": "Abomination",        "nombre_real": "Emil Blonsky",        "tipo": "villano", "anio": 1967, "bio": "Gamma-powered enemy of the Hulk."},
-    {"nombre": "Arnim Zola",         "nombre_real": "Arnim Zola",          "tipo": "villano", "anio": 1977, "bio": "HYDRA scientist who transferred his mind into a robot suit."},
-    {"nombre": "Baron Mordo",        "nombre_real": "Karl Mordo",          "tipo": "villano", "anio": 1964, "bio": "Former ally of Doctor Strange turned dark sorcerer."},
-    {"nombre": "Baron Zemo",         "nombre_real": "Helmut Zemo",         "tipo": "villano", "anio": 1973, "bio": "Mastermind villain and enemy of Captain America."},
-    {"nombre": "Bullseye",           "nombre_real": "Lester",              "tipo": "villano", "anio": 1976, "bio": "Assassin with perfect aim, enemy of Daredevil."},
-    {"nombre": "Carnage",            "nombre_real": "Cletus Kasady",       "tipo": "villano", "anio": 1992, "bio": "Serial killer bonded to a symbiote offspring of Venom."},
-    {"nombre": "Doctor Doom",        "nombre_real": "Victor Von Doom",     "tipo": "villano", "anio": 1962, "bio": "Genius ruler of Latveria in an iron suit and mask."},
-    {"nombre": "Doctor Octopus",     "nombre_real": "Otto Octavius",       "tipo": "villano", "anio": 1963, "bio": "Scientist with four mechanical tentacle arms."},
-    {"nombre": "Electro",            "nombre_real": "Maxwell Dillon",      "tipo": "villano", "anio": 1964, "bio": "Super-villain with the ability to control electricity."},
-    {"nombre": "Galactus",           "nombre_real": "Galan",               "tipo": "villano", "anio": 1966, "bio": "World-devourer and cosmic entity of immense power."},
-    {"nombre": "Green Goblin",       "nombre_real": "Norman Osborn",       "tipo": "villano", "anio": 1964, "bio": "Spider-Man's greatest enemy with a glider and pumpkin bombs."},
-    {"nombre": "HYDRA Leader",       "nombre_real": "Red Skull",           "tipo": "villano", "anio": 1941, "bio": "Nazi leader and archenemy of Captain America."},
-    {"nombre": "Juggernaut",         "nombre_real": "Cain Marko",          "tipo": "villano", "anio": 1965, "bio": "Unstoppable force empowered by the Crimson Gem of Cyttorak."},
-    {"nombre": "Kingpin",            "nombre_real": "Wilson Fisk",         "tipo": "villano", "anio": 1967, "bio": "Crimelord of New York City."},
-    {"nombre": "Loki",               "nombre_real": "Loki Laufeyson",      "tipo": "villano", "anio": 1962, "bio": "Asgardian god of mischief and time-traveling trickster."},
-    {"nombre": "Magneto",            "nombre_real": "Max Eisenhardt",      "tipo": "villano", "anio": 1963, "bio": "Mutant master of magnetism and Brotherhood leader."},
-    {"nombre": "Mandarin",           "nombre_real": "Tem Borjigin",        "tipo": "villano", "anio": 1964, "bio": "Iron Man villain who wields ten powerful rings."},
-    {"nombre": "Mephisto",           "nombre_real": "Mephisto",            "tipo": "villano", "anio": 1968, "bio": "Demon lord who rules his own hellish dimension."},
-    {"nombre": "Mister Sinister",    "nombre_real": "Nathaniel Essex",     "tipo": "villano", "anio": 1987, "bio": "Geneticist villain obsessed with mutant DNA."},
-    {"nombre": "Modok",              "nombre_real": "George Tarleton",     "tipo": "villano", "anio": 1967, "bio": "Mental organism designed only for killing."},
-    {"nombre": "Moonstone",          "nombre_real": "Karla Sofen",         "tipo": "villano", "anio": 1978, "bio": "Psychologist turned villainess with gravity powers."},
-    {"nombre": "Mysterio",           "nombre_real": "Quentin Beck",        "tipo": "villano", "anio": 1964, "bio": "Master of illusions and Spider-Man enemy."},
-    {"nombre": "Omega Red",          "nombre_real": "Arkady Rossovich",    "tipo": "villano", "anio": 1992, "bio": "Russian super-soldier with carbonadium tentacles."},
-    {"nombre": "Psycho-Man",         "nombre_real": "Unknown",             "tipo": "villano", "anio": 1967, "bio": "Microverse ruler who manipulates emotions."},
-    {"nombre": "Red Skull",          "nombre_real": "Johann Schmidt",      "tipo": "villano", "anio": 1941, "bio": "HYDRA supreme leader and archenemy of Captain America."},
-    {"nombre": "Rhino",              "nombre_real": "Aleksei Sytsevich",   "tipo": "villano", "anio": 1966, "bio": "Supervillain bonded to a rhino suit permanently."},
-    {"nombre": "Ronan",              "nombre_real": "Ronan",               "tipo": "villano", "anio": 1967, "bio": "Kree military leader and accuser."},
-    {"nombre": "Sabretooth",         "nombre_real": "Victor Creed",        "tipo": "villano", "anio": 1977, "bio": "Feral mutant and rival of Wolverine."},
-    {"nombre": "Sandman",            "nombre_real": "William Baker",       "tipo": "villano", "anio": 1963, "bio": "Villain who can transform his body into sand."},
-    {"nombre": "Scorpion",           "nombre_real": "Mac Gargan",          "tipo": "villano", "anio": 1965, "bio": "Spider-Man villain with a powerful mechanical tail suit."},
-    {"nombre": "Shocker",            "nombre_real": "Herman Schultz",      "tipo": "villano", "anio": 1967, "bio": "Villain who uses vibro-shock gauntlets."},
-    {"nombre": "Taskmaster",         "nombre_real": "Tony Masters",        "tipo": "villano", "anio": 1980, "bio": "Villain with photographic reflexes, master of any combat style."},
-    {"nombre": "Thanos",             "nombre_real": "Thanos",              "tipo": "villano", "anio": 1973, "bio": "Mad Titan obsessed with death and the Infinity Stones."},
-    {"nombre": "Ultron",             "nombre_real": "Ultron",              "tipo": "villano", "anio": 1968, "bio": "Sentient robot with a vendetta against humanity."},
-    {"nombre": "Venom",              "nombre_real": "Eddie Brock",         "tipo": "villano", "anio": 1988, "bio": "Symbiote-bonded anti-hero and enemy of Spider-Man."},
-    {"nombre": "Vulture",            "nombre_real": "Adrian Toomes",       "tipo": "villano", "anio": 1963, "bio": "Spider-Man villain with a winged suit."},
-    {"nombre": "Whiplash",           "nombre_real": "Anton Vanko",         "tipo": "villano", "anio": 1968, "bio": "Iron Man villain with electrified whip suit."},
-    {"nombre": "Yellow Jacket",      "nombre_real": "Darren Cross",        "tipo": "villano", "anio": 1979, "bio": "Villain who stole Pym particle suit technology."},
-    {"nombre": "Yellowjacket",       "nombre_real": "Rita DeMara",         "tipo": "villano", "anio": 1984, "bio": "Villain who stole the Yellowjacket suit."},
-]
+print("\n" + "=" * 60)
+print("EJERCICIO 2")
+print("=" * 60)
 
-# ============================================================
-# EJERCICIO 2 - RESOLUCIÓN
-# ============================================================
+# ----------------------------------------------------------
+# 1. Listado ordenado ascendente por nombre
+# ----------------------------------------------------------
+print("\n--- 1. Listado ordenado por nombre (ascendente) ---")
+ordenados_nombre = sorted(superheroes, key=lambda h: h["name"].lower())
+for h in ordenados_nombre:
+    print(f"  {h['name']}")
 
-def separador(titulo):
-    print(f"\n{'='*60}")
-    print(f"  {titulo}")
-    print('='*60)
-
-# ── 1. Listado ordenado ascendente por nombre ────────────────
-separador("EJ.1 - EJERCICIO 1: Recursividad")
-
-print("\n📋 Lista de 15 Superhéroes:")
-listar_superheroes(superheroes)
-
-encontrado = buscar_capitan_america(superheroes)
-print(f"\n🔍 ¿Está Capitan America en la lista? → {'✅ SÍ' if encontrado else '❌ NO'}")
-
-separador("EJ.2 - LISTADO ASCENDENTE POR NOMBRE")
-
-ordenados_nombre = sorted(personajes_marvel, key=lambda p: p["nombre"])
-for p in ordenados_nombre:
-    print(f"  {p['nombre']}")
-
-# ── 2. Posición de The Thing y Rocket Raccoon ───────────────
-separador("EJ.2.2 - POSICIÓN DE THE THING Y ROCKET RACCOON")
-
-nombres_buscar = ["The Thing", "Rocket Raccoon"]
-for nombre_buscar in nombres_buscar:
-    for i, p in enumerate(ordenados_nombre):
-        if p["nombre"] == nombre_buscar:
-            print(f"  '{nombre_buscar}' está en la posición {i + 1} (índice {i}) de la lista ordenada.")
+# ----------------------------------------------------------
+# 2. Posición de The Thing y Rocket Raccoon
+# ----------------------------------------------------------
+print("\n--- 2. Posición de The Thing y Rocket Raccoon ---")
+for buscar in ["The Thing", "Rocket Raccoon"]:
+    for i, h in enumerate(superheroes):
+        if h["name"] == buscar:
+            print(f"  '{buscar}' está en la posición {i} (índice 0-based) / posición {i + 1} (1-based)")
             break
 
-# ── 3. Listar todos los villanos ────────────────────────────
-separador("EJ.2.3 - VILLANOS DE LA LISTA")
-
-villanos = [p for p in personajes_marvel if p["tipo"] == "villano"]
+# ----------------------------------------------------------
+# 3. Listado de villanos
+# ----------------------------------------------------------
+print("\n--- 3. Villanos de la lista ---")
+villanos = [h for h in superheroes if h["is_villain"]]
 for v in villanos:
-    print(f"  🦹 {v['nombre']} ({v['nombre_real']}) - {v['anio']}")
+    print(f"  {v['name']} ({v['real_name']})")
 
-# ── 4. Cola de villanos → filtrar anteriores a 1980 ─────────
-separador("EJ.2.4 - COLA DE VILLANOS: APARECIERON ANTES DE 1980")
+# ----------------------------------------------------------
+# 4. Cola de villanos → filtrar los anteriores a 1980
+# ----------------------------------------------------------
+print("\n--- 4. Villanos en cola → aparecieron antes de 1980 ---")
+cola_villanos = deque(villanos)   # encolamos todos los villanos
 
-cola_villanos = deque()
-for v in villanos:
-    cola_villanos.append(v)
-
-print(f"  Total en cola: {len(cola_villanos)} villanos\n")
-print("  Villanos que aparecieron ANTES de 1980:")
 villanos_antes_1980 = []
 while cola_villanos:
-    villano = cola_villanos.popleft()
-    if villano["anio"] < 1980:
-        villanos_antes_1980.append(villano)
-        print(f"    ⚡ {villano['nombre']} - {villano['anio']}")
+    v = cola_villanos.popleft()   # desencolamos de a uno
+    if v["first_appearance"] < 1980:
+        villanos_antes_1980.append(v)
 
-print(f"\n  Total antes de 1980: {len(villanos_antes_1980)}")
+print(f"  Villanos que aparecieron antes de 1980 ({len(villanos_antes_1980)}):")
+for v in villanos_antes_1980:
+    print(f"    {v['name']} ({v['first_appearance']})")
 
-# ── 5. Héroes que comienzan con Bl, G, My, W ────────────────
-separador("EJ.2.5 - HÉROES QUE COMIENZAN CON Bl, G, My, W")
+# ----------------------------------------------------------
+# 5. Personajes que comienzan con Bl, G, My, W
+# ----------------------------------------------------------
+print("\n--- 5. Personajes que comienzan con Bl, G, My, W ---")
+prefijos = ("Bl", "G", "My", "W")
+for prefijo in prefijos:
+    filtrado = [h for h in superheroes if h["name"].startswith(prefijo)]
+    print(f"\n  Comienzan con '{prefijo}':")
+    for h in filtrado:
+        print(f"    {h['name']}")
 
-prefijos = ["Bl", "G", "My", "W"]
-for pref in prefijos:
-    coincidencias = [p for p in personajes_marvel
-                     if p["nombre"].startswith(pref) and p["tipo"] == "heroe"]
-    print(f"\n  Prefijo '{pref}':")
-    if coincidencias:
-        for c in coincidencias:
-            print(f"    → {c['nombre']}")
-    else:
-        print(f"    (ninguno)")
-
-# ── 6. Ordenado por nombre real ascendente ──────────────────
-separador("EJ.2.6 - ORDENADO POR NOMBRE REAL (ASCENDENTE)")
-
-ordenados_real = sorted(personajes_marvel, key=lambda p: p["nombre_real"])
-for p in ordenados_real:
-    print(f"  {p['nombre_real']:<30} → {p['nombre']}")
-
-# ── 7. Héroes ordenados por fecha de aparición ──────────────
-separador("EJ.2.7 - HÉROES ORDENADOS POR FECHA DE APARICIÓN")
-
-heroes_por_fecha = sorted(
-    [p for p in personajes_marvel if p["tipo"] == "heroe"],
-    key=lambda p: p["anio"]
+# ----------------------------------------------------------
+# 6. Listado ordenado por nombre real (ascendente)
+# ----------------------------------------------------------
+print("\n--- 6. Ordenado por nombre real (ascendente) ---")
+# Los que tienen real_name None van al final
+ordenados_real = sorted(
+    superheroes,
+    key=lambda h: (h["real_name"] is None, (h["real_name"] or "").lower())
 )
-for p in heroes_por_fecha:
-    print(f"  {p['anio']} - {p['nombre']}")
+for h in ordenados_real:
+    print(f"  {h['real_name'] or 'N/A':35} → {h['name']}")
 
-# ── 8. Modificar nombre real de Ant-Man → Scott Lang ────────
-separador("EJ.2.8 - MODIFICAR NOMBRE REAL DE ANT-MAN")
+# ----------------------------------------------------------
+# 7. Listado ordenado por fecha de aparición
+# ----------------------------------------------------------
+print("\n--- 7. Ordenado por fecha de aparición ---")
+ordenados_fecha = sorted(superheroes, key=lambda h: h["first_appearance"])
+for h in ordenados_fecha:
+    print(f"  {h['first_appearance']}  {h['name']}")
 
-for p in personajes_marvel:
-    if p["nombre"] == "Ant-Man":
-        print(f"  Antes: {p['nombre']} → {p['nombre_real']}")
-        p["nombre_real"] = "Scott Lang"
-        print(f"  Después: {p['nombre']} → {p['nombre_real']}")
+# ----------------------------------------------------------
+# 8. Modificar nombre real de Ant Man a Scott Lang
+# ----------------------------------------------------------
+print("\n--- 8. Modificar nombre real de Ant Man ---")
+for h in superheroes:
+    if h["name"] == "Ant Man":
+        print(f"  Antes  → real_name: '{h['real_name']}'")
+        h["real_name"] = "Scott Lang"
+        print(f"  Después → real_name: '{h['real_name']}'")
         break
 
-# ── 9. Personajes cuya bio incluye "time-traveling" o "suit" ─
-separador("EJ.2.9 - BIO INCLUYE 'time-traveling' O 'suit'")
-
+# ----------------------------------------------------------
+# 9. Personajes con "time-traveling" o "suit" en su bio
+# ----------------------------------------------------------
+print("\n--- 9. Personajes con 'time-traveling' o 'suit' en la bio ---")
 palabras_clave = ["time-traveling", "suit"]
-for p in personajes_marvel:
-    bio_lower = p["bio"].lower()
-    encontradas = [pal for pal in palabras_clave if pal in bio_lower]
-    if encontradas:
-        print(f"  [{', '.join(encontradas)}] {p['nombre']}: {p['bio']}")
+for h in superheroes:
+    bio = h["short_bio"].lower()
+    if any(p in bio for p in palabras_clave):
+        coincidencias = [p for p in palabras_clave if p in bio]
+        print(f"  {h['name']:25} → palabra(s): {coincidencias}")
 
-# ── 10. Eliminar Electro y Baron Zemo ───────────────────────
-separador("EJ.2.10 - ELIMINAR ELECTRO Y BARON ZEMO")
-
+# ----------------------------------------------------------
+# 10. Eliminar Electro y Baron Zemo; mostrar info si estaban
+# ----------------------------------------------------------
+print("\n--- 10. Eliminar Electro y Baron Zemo ---")
 a_eliminar = ["Electro", "Baron Zemo"]
-for nombre_del in a_eliminar:
-    for i, p in enumerate(personajes_marvel):
-        if p["nombre"] == nombre_del:
-            eliminado = personajes_marvel.pop(i)
-            print(f"\n  ✅ '{nombre_del}' encontrado y eliminado.")
-            print(f"     Nombre real : {eliminado['nombre_real']}")
-            print(f"     Tipo        : {eliminado['tipo']}")
-            print(f"     Aparición   : {eliminado['anio']}")
-            print(f"     Biografía   : {eliminado['bio']}")
+for nombre in a_eliminar:
+    encontrado = None
+    for h in superheroes:
+        if h["name"] == nombre:
+            encontrado = h
             break
+    if encontrado:
+        superheroes.remove(encontrado)
+        print(f"\n  '{nombre}' encontrado y eliminado. Datos:")
+        for k, v in encontrado.items():
+            print(f"    {k}: {v}")
     else:
-        print(f"\n  ❌ '{nombre_del}' NO estaba en la lista.")
+        print(f"\n  '{nombre}' NO estaba en la lista.")
 
-print(f"\n  Total de personajes tras eliminación: {len(personajes_marvel)}")
-print("\n" + "="*60)
-print("  FIN DEL PARCIAL")
-print("="*60)
+print(f"\nTotal de personajes tras eliminar: {len(superheroes)}")
+print("\n¡Fin del parcial!")
